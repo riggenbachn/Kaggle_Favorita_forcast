@@ -9,3 +9,9 @@ Getting a handle on the data:
 It seems like if a holiday was transfered we should treat the original day as a normal day, and so we will remove these rows from holidays_events when building our model. Each of the other type of event seems distinct enough that they should be treated seperately, and so we will use a onehot model for these when building our model. 
 
 There is very little missing data, we only have missing oil prices. We will back-fill these values. while this seems like a bad estimate it should be good enough for our machine learning model.
+
+transactions contains no new information and so will not be included in the initial model.
+
+Not clear what type in store metadata is, but including it is not too much more data and it might improve the model. Will do some statistical testing to find out if it is correlated with sales. 
+
+Everything else seems important and worth including in our model.
