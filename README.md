@@ -15,3 +15,15 @@ transactions contains no new information and so will not be included in the init
 Not clear what type in store metadata is, but including it is not too much more data and it might improve the model. Will do some statistical testing to find out if it is correlated with sales. 
 
 Everything else seems important and worth including in our model.
+
+Based on the graph of total sales over time:
+![image](https://github.com/user-attachments/assets/dd4e8f9e-f5ba-4bec-b7ba-24c2eb35d605)
+with the exception of times around December 25th the sales are relatively constant over time and so it does not make sense to try and model the (log of) the total sales as a sum of random variables given the time. We will instead use a machine learning algorithm xGBoost.
+
+## Data pipeline
+
+For testing we one hot encoded everything which was categorical except the date.
+
+Since there are more than 3 million observations this caused a large bottleneck in testing and implemintation. The most obvious code took our laptop more than 8 hours to process just 1 million rows.
+
+We fixed this by doing 2 things. Note that for the pipeline we do not need to worry about data leakage since the pipeline only involves one hot encoding and averaging local values. Thus we can fit the pipeline on a much smaller data set (we used the last 1000 rows of our feature list table) and then transfor the data acording to that fit. This sped up the process to run in less than an hour, a significant improvement but still too long to run every time we wanted to run a test. To get around this, for testing, we printed the preprocessed data to a csv file and loaded it for tests instead of processing the data every time.
