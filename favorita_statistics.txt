@@ -1,5 +1,1 @@
-import pandas as pd
-import numpy as np
 
-sales_data = pd.read_csv(r'C:\Users\noahr\OneDrive\Documents\Kaggle\Intro to machine learning\Favorita_forcast\train.csv')
-processed_data = pd.read_csv(r'C:\Users\noahr\OneDrive\Documents\Kaggle\Intro to machine learning\Favorita_forcast\preprocessed_data.csv')
