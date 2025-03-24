@@ -37,3 +37,8 @@ From this we see that city holidays, city transfers, national holidays, and nati
 ![image](https://github.com/user-attachments/assets/9291e1ee-2e37-4c33-8748-eb52de79ee3f)
 We still see that city holidays, city transfer days, and national work days do not have a statistically signifigant effect on the logarithm of total sales, but that national holidays do. This also suggests that we should train our model on the logarithm of sales and then exponentiate our results.
 
+## Model Specifications
+We now turn to using XGBoost. Without setting any training parameters we find that the model trained on 2014 data has a root mean squared error of 2.16773890287724. This leaves a lot of room for improvement. One source of imporvements could come from the number of estimators, but we see from the following graph of estimators vs log mean squared error that 100 is optimal:
+![image](https://github.com/user-attachments/assets/61cb9d9e-7a81-4931-a59d-39f6dda00fbc)
+
+We also removed the sales data from April 16, 2016 through June 30, 2016 since this data is effected by the earthquake.
