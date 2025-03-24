@@ -1,5 +1,5 @@
 # Kaggle_Favorita_forcast
-This repository is my solution to Kaggle's Store Sales - Time Series Forecasting machine learning competition.
+This repository is my solution to Kaggle's Store Sales - Time Series Forecasting machine learning competition. There are 11 files, 
 
 Getting a handle on the data:
 ![image](https://github.com/user-attachments/assets/a828eed7-e399-4c4f-84e5-e79a72a00a56)
