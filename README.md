@@ -1,5 +1,5 @@
 # Kaggle_Favorita_forcast
-This repository is my solution to Kaggle's Store Sales - Time Series Forecasting machine learning competition. There are 11 files, 
+This repository is my solution to Kaggle's Store Sales - Time Series Forecasting machine learning competition. There are 12 files, 5 python files and 7 csv files. 
 
 Getting a handle on the data:
 ![image](https://github.com/user-attachments/assets/a828eed7-e399-4c4f-84e5-e79a72a00a56)
@@ -7,7 +7,7 @@ Getting a handle on the data:
 
 ## Model assumptions
 It seems like if a holiday was transfered we should treat the original day as a normal day, and so we will remove these rows from holidays_events when building our model. Each of the other type of event seems distinct enough that they should be treated seperately, and so we will use a onehot model for these when building our model. 
-l.
+
 There is very little missing data, we only have missing oil prices. We will back-fill these values. while this seems like a bad estimate it should be good enough for our machine learning model.
 
 transactions contains no new information and so will not be included in the initial model.
