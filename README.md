@@ -42,3 +42,8 @@ We now turn to using XGBoost. Without setting any training parameters we find th
 ![image](https://github.com/user-attachments/assets/61cb9d9e-7a81-4931-a59d-39f6dda00fbc)
 
 We also removed the sales data from April 16, 2016 through June 30, 2016 since this data is effected by the earthquake.
+
+## Results
+Using the above we run XGBRegressor to the training data an print to the file favorita_sales_predictions.csv our predicted sales numbers. Upon submitting we find that the root mean squared log error of our prediction as compared to the real world data is 1.089.
+![image](https://github.com/user-attachments/assets/195cf0ed-38c2-451e-98bc-f7914fad2886)
+
