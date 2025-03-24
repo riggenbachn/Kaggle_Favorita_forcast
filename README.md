@@ -7,7 +7,7 @@ Getting a handle on the data:
 
 ## Model assumptions
 It seems like if a holiday was transfered we should treat the original day as a normal day, and so we will remove these rows from holidays_events when building our model. Each of the other type of event seems distinct enough that they should be treated seperately, and so we will use a onehot model for these when building our model. 
-
+l.
 There is very little missing data, we only have missing oil prices. We will back-fill these values. while this seems like a bad estimate it should be good enough for our machine learning model.
 
 transactions contains no new information and so will not be included in the initial model.
@@ -24,6 +24,16 @@ with the exception of times around December 25th the sales are relatively consta
 
 For testing we one hot encoded everything which was categorical except the date.
 
-Since there are more than 3 million observations this caused a large bottleneck in testing and implemintation. The most obvious code took our laptop more than 8 hours to process just 1 million rows.
+Since there are more than 3 million observations this caused a large bottleneck in testing and implemintation. The most obvious code took our laptop more than an hour to process just 1 million rows, and runing a fit on the entire table was still running after 24 hours when we canceled the code and started looking for optimizations. 
 
-We fixed this by doing 2 things. Note that for the pipeline we do not need to worry about data leakage since the pipeline only involves one hot encoding and averaging local values. Thus we can fit the pipeline on a much smaller data set (we used the last 1000 rows of our feature list table) and then transfor the data acording to that fit. This sped up the process to run in less than an hour, a significant improvement but still too long to run every time we wanted to run a test. To get around this, for testing, we printed the preprocessed data to a csv file and loaded it for tests instead of processing the data every time.
+We fixed this by doing 2 things. Note that for the pipeline we do not need to worry about data leakage since the pipeline only involves one hot encoding and averaging local values. Thus we can fit the pipeline on a smaller data set (we used the last 1 million rows of our feature list table) and then transform the data according to that fit. This sped up the process to run in 9 hours, a significant improvement but still too long to run every time we wanted to run a test. To get around this, for testing, we printed the preprocessed data to a csv file and loaded it for tests instead of processing the data every time.
+
+## Statistics
+Before running and optimizing our solution we want to first find what to run t-tests to see which of our potential features are in fact relevant and worth including in our model. We use the favorita_statistics.py code to output the t-statistics which result in the following:
+![image](https://github.com/user-attachments/assets/966abefa-e888-4c27-a564-9ca097ea4448)
+![image](https://github.com/user-attachments/assets/44ba640f-6e5e-403e-80c8-ebadbee0b1a3)\
+From this we see that city holidays, city transfers, national holidays, and national work days have very little linear effect on the total sales. This however seems at odds with the graph of total sales which spike around December 25th. It seems more likely that there is a linear relationship between these columns and the logarithm of total sales, which we compute the t-statistics of below:
+![image](https://github.com/user-attachments/assets/bfd302c8-b337-466f-b493-5238078f2f09)
+![image](https://github.com/user-attachments/assets/9291e1ee-2e37-4c33-8748-eb52de79ee3f)
+We still see that city holidays, city transfer days, and national work days do not have a statistically signifigant effect on the logarithm of total sales, but that national holidays do. This also suggests that we should train our model on the logarithm of sales and then exponentiate our results.
+
